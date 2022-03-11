@@ -68,6 +68,6 @@ ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 CREATE TRIGGER on_update_set_timestamp
-BEFORE UPDATE ON notes
+BEFORE UPDATE ON note
 FOR EACH ROW
 EXECUTE PROCEDURE on_update_set_timestamp();
