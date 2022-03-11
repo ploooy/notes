@@ -1,6 +1,13 @@
 CREATE DATABASE notes;
 
 
+CREATE FUNCTION trigger_set_timestamp()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = NOW();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
 
 CREATE TABLE account (
@@ -9,7 +16,7 @@ CREATE TABLE account (
     first_name VARCHAR(16),
     last_name VARCHAR(16),
     secret VARCHAR(32),
-    reg_date DATE
+    registered_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE note (
@@ -17,8 +24,8 @@ CREATE TABLE note (
     account_id INT,
     title VARCHAR(64),
     body TEXT,
-    create_time TIME,
-    edit_time TIME
+    create_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE session (
