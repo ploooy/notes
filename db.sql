@@ -1,7 +1,7 @@
 CREATE DATABASE notes;
 
 
-CREATE FUNCTION trigger_set_timestamp()
+CREATE FUNCTION trigger_on_update_set_timestamp()
 RETURNS TRIGGER AS $$
 BEGIN
     NEW.updated_at = NOW();
@@ -65,3 +65,9 @@ ALTER TABLE access
 ADD CONSTRAINT access_account_id_fk FOREIGN KEY (account_id)
 REFERENCES account(id)
 ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+CREATE TRIGGER on_update_set_timestamp
+BEFORE UPDATE ON notes
+FOR EACH ROW
+EXECUTE PROCEDURE on_update_set_timestamp();
