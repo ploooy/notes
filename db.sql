@@ -34,7 +34,7 @@ CREATE TABLE note (
 
 CREATE TABLE session (
     id SERIAL PRIMARY KEY,
-    token NOT NULL DEFAULT uuid_generate_v4(),
+    token UUID NOT NULL DEFAULT uuid_generate_v4(),
     account_id INT NOT NULL,
     start_time TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     end_time TIMESTAMPTZ
